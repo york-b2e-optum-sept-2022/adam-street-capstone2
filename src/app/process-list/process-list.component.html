@@ -1,3 +1,9 @@
+
+
 <div *ngFor="let process of processList">
-  <div>{{process.id}} - {{process.title}}</div>
+  <div>
+    {{process.id}} - {{process.title}}
+    <button (click)="onUpdate(process)">Update</button>
+    <button (click)="onDelete(process)">Delete</button>
+  </div>
 </div>
