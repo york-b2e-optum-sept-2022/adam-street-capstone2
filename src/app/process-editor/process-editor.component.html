@@ -1,0 +1,32 @@
+<label>
+  Process Title
+  <input [(ngModel)]="process.title" type="text">
+</label>
+
+<button (click)="onAddStage()">Add Stage</button>
+
+<div *ngFor="let stage of process.stageList; let i = index">
+  <input [(ngModel)]="stage.text" type="text">
+
+  <select [(ngModel)]="stage.responseType">
+    <option value="1">Text</option>
+    <option value="2">Yes / No</option>
+    <option value="3">Multiple Choice</option>
+  </select>
+
+  <div *ngIf="stage.responseType == 3">
+    <input [(ngModel)]="multipleChoiceOption" type="text">
+    <button (click)="onAddMultipleChoiceOptionToStage(stage)">Add Option</button>
+
+
+    <div *ngFor="let option of stage.optionList; let i = index;">
+      {{option}} <button (click)="onRemoveMultipleChoiceOptionFromStage(stage, i)">Remove</button>
+    </div>
+
+  </div>
+
+  <button (click)="onRemoveStage(i)">Remove</button>
+</div>
+
+<hr>
+<button (click)="onSave()">Save</button>
