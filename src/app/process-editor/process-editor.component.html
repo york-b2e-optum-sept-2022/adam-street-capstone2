@@ -1,3 +1,5 @@
+<ngb-alert *ngIf="errorText.length > 0" [type]="'danger'" (closed)="onCloseError()">{{ errorText }}</ngb-alert>
+
 <label>
   Process Title
   <input [(ngModel)]="process.title" type="text">
@@ -8,7 +10,7 @@
 <div *ngFor="let stage of process.stageList; let i = index">
   <input [(ngModel)]="stage.text" type="text">
 
-  <select [(ngModel)]="stage.responseType">
+  <select [ngModel]="stage.responseType" (ngModelChange)="onStageResponseTypeChange(stage, $event)">
     <option value="1">Text</option>
     <option value="2">Yes / No</option>
     <option value="3">Multiple Choice</option>
@@ -25,6 +27,8 @@
 
   </div>
 
+  <button [disabled]="i === 0" (click)="onMoveStageUp(i)">Up</button>
+  <button [disabled]="i === this.process.stageList.length - 1" (click)="onMoveStageDown(i)">Down</button>
   <button (click)="onRemoveStage(i)">Remove</button>
 </div>
 
